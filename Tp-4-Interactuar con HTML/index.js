@@ -143,30 +143,47 @@ valor_x_km(usuarioNuevo.km)
 console.log(usuarioNuevo.precio);
 
 // Array de usuarios
-let usuarios = []
+let usuarios = [
+    
+]
 
 usuarios.push(usuarioNuevo.email, usuarioNuevo.edad, usuarioNuevo.vehiculo, usuarioNuevo.año, usuarioNuevo.km, usuarioNuevo.precio )
 
 console.log(usuarios);
 
-// alert("nombre"=usuarios[0])
+// Quise poner en practica la devolucion para que me forme un array de objetos pero me devuelve un error en el nav
+//usuarios.push(new usuarioNuevo(email, edad,vehiculo, año,km, precio ))
 
-// No logro que funcione
-// switch (edad) {
-//     case edad <= 17:
-//         // let insuficiente =
-//         console.log( "su edad es insuficiente para solicitar un seguro" );
-//         break;
-//         case edad >= 18 && edad <=30:
-//             // let riesgo = "Puede solicitar un seguro!"
-//             console.log("Puede solicitar un seguro!");
-//             case edad >=31 && edad <=65:
-//         //    let bajoRiesgo = "Su edad le permite acceder a un seguro con descuentos" 
-//         console.log("Su edad le permite acceder a un seguro con descuentos");
-//         break;
-//              default: 
-//             //  let nulo = "Supera la edad maxima para solicitar un seguro"
-//             console.log("Supera la edad maxima para solicitar un seguro");
-//         break;
-// }
-// console.log(edad);
+
+// No logre que mi funcion constructora me cree un array de objetos asi que cree uno para enviar al home 
+let usuariosConAntiguedad = [
+    {
+        Nombre: "Miguel Rodriguez",
+        Edad: 43,
+        Modelo: "Ford fiesta kinetic",
+        km: 35000
+    }, 
+    { 
+
+        Nombre: "Sandra Lopez",
+        Edad: 65,
+        Modelo: "Mercedes Benz C250",
+        km: 45500},
+    {    
+        Nombre: "Brensa Sessolo",
+        Edad: 22,
+        Modelo: "Chevrolet Agile",
+        km: 70000}
+]
+
+// //capturando elemento titulo via class
+ 
+ for(const usuario of usuariosConAntiguedad){
+    let datosUsuario = document.getElementById("lista-datos");
+    datosUsuario.innerHTML = `<h2>Nombre: ${usuario.Nombre}</h2>
+                    <p>Edad: ${usuario.Edad}</p>
+                    <p>Vehiculo: ${usuario.Modelo}</p>
+                    <b>Kilometros${usuario.km}</b>
+                   `;
+    contenedor.append(lista-datos);
+  }
