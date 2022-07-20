@@ -1,0 +1,5 @@
+-El proyecto apunta al desarrollo sitio web de seguros de autos diseñado con la modalidad mobile-first
+
+-El mismo esta diseñado con el FrameWork Boostrap y su funcionalidad lograda mediante la logica aprendida en el curso de JavaScript de CoderHouse
+
+-Gonza perdon por la demora con la entrega del Tp 5, encontre un tutorial en youTube que me encanto y pense que iba a poder hacerlo en 5 min... pues no, ademas arme con Boostrap parte del home y la verdad es que estuve trabajando a miiiil y aun no quedo pero a mi gusto esta muy hermoso esteticamente y con la funcionalidad
