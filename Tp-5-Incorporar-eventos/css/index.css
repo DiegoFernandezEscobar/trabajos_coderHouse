@@ -15,12 +15,44 @@
 	color: white;
 	border: solid white;
 } 
+/* Btn darkMode en blanco */
+.btn-dark{
+	background-color: #797979a8;
+	color: #ffffff
+}
+
+
+.btn-dark-active {
+background-color:white;
+color: #000;
+}
 /* fin modos oscuros */
+/* Cambio de color de selectores de productos */
+
+.contenedor-div-active {
+
+	background-color: #fec40478;
+}
+
 
 /* texto productos */
 .titulo-producto{
 	padding-left: 9px;
 	margin-left:25px;
+	font-weight: 900;
+}
+
+.card-title{
+	font-weight: bolder;
+	margin-bottom: 35px;
+	padding-bottom: 40px;
+}
+.card-text{
+	padding-bottom: 30px;
+}
+.precio-producto{
+	padding-left:290px ;
+	background-color: rgba(154, 194, 69, 0.643);
 }
 #textoProductos{
 margin-right: 5px;
@@ -77,11 +109,13 @@ padding-left: 25px;
 }
 
 .primer-bajada-contenedor{
-    background-color: #f0f0f0a8;
+    background-color: #fff;
     text-align: center;
     padding: 50px 25px;
     }
-
+.primer-bajada-contenedor-active{
+	background-color:#7979796e ;
+}
     .primer-bajada-titulo{
         font-weight: 600;
     }
@@ -93,7 +127,8 @@ padding-left: 25px;
    }  */
    .titulo-tarjeta{
 text-align: center;
-margin-bottom: 35px;
+margin: 75px;
+padding: 40px;
 }
 
    .tarjeta {

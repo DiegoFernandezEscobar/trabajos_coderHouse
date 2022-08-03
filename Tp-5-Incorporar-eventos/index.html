@@ -14,15 +14,15 @@
 <!-- Font awesome iconos -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+<!-- Boostrap CSS  -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- Link css index -->
     <link rel="stylesheet" href="./css/index.css">
-    <!-- Boostrap CSS  -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
 </head>
-<body class="nightMode">
+<body class="nightMode" id="body">
     <!-- Comienzo del navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,8 +31,8 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
                     <a class="nav-link" href="#">Home</a>
-                    <a class="nav-link" href="#" id="login">Login  <i class="fa-solid fa-user"></i></a>
-                    <button type="button" class="btn btn-outline-secondary" id="nightMode">NightMode</button>
+                    <a class="nav-link" href="#" id="login">Login  <i class="fa-solid fa-user" id="iconoLogin"></i></a>
+                    <button type="button" class="btn-dark btn btn-outline-secondary" id="nightMode">NightMode</button>
                 </div>
             </div>
         </div>
@@ -68,7 +68,7 @@
       <!-- Comienza el contenido de la pagina-->
       <!-- primer titulo con introduccion de marca -->
       <div class="container-flex" id="nightMode">
-            <div class="primer-bajada-contenedor ">
+            <div class="primer-bajada-contenedor">
               <h2 class="primer-bajada-titulo">Nos ocupamos de todos los detalles para que no tengas que preocuparte</h2>
               <p class="primer-bajada-parrafo">Somos la empresa numero 1 en Latino America con mas de 73 sucursales distribuidas en 18 países.</p>
             </div>
@@ -79,7 +79,8 @@
         <!-- Fin de acordeon -->
         <!--Titulo contratacion-->
         <div class="titulo-tarjeta">
-          <h2>Quieres contratarnos?</h2>
+         <strong><h2>Quieres contratarnos?</h2></strong> 
+         <h4>Conoce los beneficios que tenemos disponibles y no dudes en contratarnos.</h4>
         </div>
         <!--Fila de tarjeta de credito y de tarjeta de descuento-->
         <div class="container text-center" id="nightMode">
@@ -88,11 +89,11 @@
               <div class="card" style="width: 25rem;">
                 <img src="./img/descuentobbva.jpeg" class="card-img-top" alt="descuentobbva">
                 <div class="card-body" id="descuento">
-                  <h5 class="card-title" id="cardTitle">Si sos cliente del BBVA Frances tenes grandes descuentos!</h5>
-                  <p class="card-text" id="cardText">No importa que categoria de tarjeta tengas, en Apolo seguro le damos a todos nuestros clientes un beneficio por igual.
+                  <h3 class="card-title" id="cardTitle">Si sos cliente del BBVA Frances tenes grandes descuentos!</h3>
+                  <h5 class="card-text" id="cardText">No importa que categoria de tarjeta tengas, en Apolo seguro le damos a todos nuestros clientes un beneficio por igual.
                     Que estas esperando? completa los datos en la tarjeta de credito y suscribite ya a tu seguro de confianza!
-                  </p>
-                  
+                  </h5>
+                  <button type="button" class="btn btn-outline-primary" id="btnDescuento">Aplicar Descuento!</button>
                 </div>
               </div>
             </div>
@@ -184,7 +185,7 @@
                   <input type="text" id="inputCCV" maxlength="3">
                 </div>
               </div>
-              <button type="submit" class="btn-enviar">Enviar</button>
+              <button type="submit" class="btn-enviar" id="btnTarjeta">Enviar</button>
             </form>
           </div>
         </div>
@@ -237,6 +238,7 @@
     <!--Fin de form de contacto y lista de usuarios -->
   </div>
 </div>  
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="./js/index.js"></script>  
 </body>
 </html>

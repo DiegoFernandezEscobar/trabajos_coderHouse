@@ -2,15 +2,71 @@
     font-family: 'Poppins', sans-serif;
     font-size: 18px;
 }
+/* Modos oscuros  */
+.nightMode-Active {
+	background-color: #797979a8;
+
+}
+.card-body-active{
+	background-color:#797979a8 ;
+	
+}
+.card-title-active, .card-text-active{
+	color: white;
+	border: solid white;
+} 
+/* fin modos oscuros */
+
+/* texto productos */
+.titulo-producto{
+	padding-left: 9px;
+	margin-left:25px;
+}
+#textoProductos{
+margin-right: 5px;
+padding-top: 65px;
+padding-left: 25px;
+}
+#div-productos{
+	padding: 5px;
+	margin: 5px;
+	margin-bottom: 15px;
+	border: solid gray;
+}
+
+/* fin textos productos */
 .titulo-header{
     margin-top:5px;
     color: rgb(0, 0, 0);
     font-weight:900;
     font-size: 3.5rem;
    margin-bottom: 550px;
-   background-color: rgba(226, 226, 226, 0.473);
+   background-color: #f0f0f0a8
 
 }
+.formulario-login{
+	display: flex;
+	margin-right: 50px;
+	display: none;
+}
+.formulario-login-active{
+	animation: fadeIn 3s;
+  	opacity: 1;
+	display: flex;
+	margin-right: 50px;
+	margin-bottom: 3px;
+	border: #646c77;
+
+	
+}
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+	   opacity: 1;
+	}
+  }
 
 .parrafo-header{
     margin: top 10px; ;
@@ -19,8 +75,9 @@
     
 
 }
+
 .primer-bajada-contenedor{
-    background-color: rgba(237, 237, 237, 0.759);
+    background-color: #f0f0f0a8;
     text-align: center;
     padding: 50px 25px;
     }
@@ -30,7 +87,16 @@
     }
 
    /* ---------- Estilos Generales de las Tarjetas ----------*/
-.tarjeta {
+
+   /* .centrado{
+	   justify-content: center;
+   }  */
+   .titulo-tarjeta{
+text-align: center;
+margin-bottom: 35px;
+}
+
+   .tarjeta {
 	width: 100%;
 	max-width: 550px;
 	position: relative;
@@ -60,7 +126,7 @@
 
 .tarjeta .delantera {
 	width: 100%;
-	background: url(../img/bg-tarjeta/bg-tarjeta-02.jpg);
+	background: url(../img/bg-tarjeta/bg-tarjeta-03.jpg);
 	background-size: cover;
 }
 
@@ -84,16 +150,17 @@
 
 .delantera .grupo .label {
 	font-size: 16px;
-	color: #7d8994;
+	color: #fbfbfb;
 	margin-bottom: 5px;
 }
 
 .delantera .grupo .numero,
 .delantera .grupo .nombre,
 .delantera .grupo .expiracion {
-	color: #fff;
+	color: #fbfbfb;
 	font-size: 22px;
 	text-transform: uppercase;
+	
 }
 
 .delantera .flexbox {
@@ -104,7 +171,7 @@
 
 /* ---------- Tarjeta Trasera ----------*/
 .trasera {
-	background: url(../img/bg-tarjeta/bg-tarjeta-02.jpg);
+	background: url(../img/bg-tarjeta/bg-tarjeta-03.jpg);
 	background-size: cover;
 	position: absolute;
 	top: 0;
@@ -114,7 +181,7 @@
 
 .trasera .barra-magnetica {
 	height: 40px;
-	background: #000;
+	background: rgb(117, 117, 117);
 	width: 100%;
 	position: absolute;
 	top: 30px;
@@ -154,7 +221,7 @@
 }
 
 .trasera .datos #ccv .ccv {
-	background: #fff;
+	background: #fbfbfb;
 	height: 40px;
 	color: #000;
 	padding: 10px;
@@ -168,7 +235,7 @@
 
 .trasera .link-banco {
 	font-size: 14px;
-	color: #fff;
+	color: #fbfbfb;
 }
 
 /* ---------- Contenedor Boton ----------*/

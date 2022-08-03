@@ -31,26 +31,19 @@ class NuevoUser{
         this.banco = bancoMin 
     }
 
-// //Funcion incremental de id
-//     idMas(){
-//         let id = date()
-//         if (this.nombre !== "") {
-//             id.getSecond()   
-//             this.nombre += id
-//             }
-//     }
 
-    // Funcion anonima que valida si tiene descuento x banco
-    tieneBanco(){
-        if (this.banco !== "frances" || this.banco !== "santander") {
-            this.precio = 0
-        }
-        if (this.banco === "frances" || this.banco === "santander" ){
-            this.precio = -3500
-        }
-    }
+
 }
 
+// // Funcion anonima que valida si tiene descuento x banco
+// tieneBanco(){
+//     if (this.banco !== "frances" || this.banco !== "santander") {
+//         this.precio = 0
+//     }
+//     if (this.banco === "frances" || this.banco === "santander" ){
+//         this.precio = -3500
+//     }
+// }
 let usuarioNuevo = new NuevoUser(email, nombreMin, edad, vehiculo, año, km, bancoMin)
  console.log(usuarioNuevo);
 

@@ -1,105 +1,3 @@
-// // Codigo optimizado x cuestion de tiempo solo agrego unos ejemplos y despues lo aplico a todo el codigo
-
-const swalWithBootstrapButtons = Swal.mixin({
-	customClass: {
-	  confirmButton: 'btn btn-success',
-	  cancelButton: 'btn btn-danger'
-	},
-	buttonsStyling: false
-  })
-  
-  swalWithBootstrapButtons.fire({
-	title: 'Eres mayor de edad?',
-	text: "Ingrese su edad para continuar",
-	icon: 'warning',
-	input: "number",
-	showCancelButton: true,
-	confirmButtonText: 'Si, soy mayor',
-	cancelButtonText: 'Soy menor de edad',
-	reverseButtons: true
-  }).then((result) => {
-	// Codigo optimizado como ejemplo 
-	result.isConfirmed ? swalWithBootstrapButtons.fire(
-		 	'Puedes Ingresar!',
-		 	'Al ser mayor de edad puedes contratar un seguro.',
-		 	'success'
-		   ) : swalWithBootstrapButtons.fire(
-			 	'No puedes Ingresar',
-			 	'Es muy importante ser mayor de edad para poder navegar',
-			 	'error'
-			   ) 
-
-  })
-  
-  // Codigo a perfeccionar que aun no funciona 
-
-// let btnContratarProducto = document.querySelector("#btnContratar");
-// console.log(btnContratarProducto + 1 );
-// btnContratarProducto.addEventListener('click',()=>{
-
-// 	console.log(btnContratar);
-// 	Swal.fire({
-// 		title: 'Are you sure?',
-// 		text: "You won't be able to revert this!",
-// 		icon: 'warning',
-// 		showCancelButton: true,
-// 		confirmButtonColor: '#3085d6',
-// 		cancelButtonColor: '#d33',
-// 		confirmButtonText: 'Yes, delete it!'
-// 	  }).then((result) => {
-// 		if (result.isConfirmed) {
-// 		  Swal.fire(
-// 			'Deleted!',
-// 			'Your file has been deleted.',
-// 			'success'
-// 		  )
-// 		}
-// 	  })
-// })
-// Capturo el body 
-// let nav = document.querySelector("#nav");
-// function captarCliente(nav) {
-	
-// 	nav.addEventListener("mouseleave",()=>{
-// 		console.log(1);
-// 		const swalWithBootstrapButtons = Swal.mixin({
-// 			customClass: {
-// 			  confirmButton: 'btn btn-success',
-// 			  cancelButton: 'btn btn-danger'
-// 			},
-// 			buttonsStyling: false
-// 		  })
-		  
-// 		  swalWithBootstrapButtons.fire({
-// 			title: 'Ya estas registrado?',
-// 			text: "Para poder realizar la compra tenes que tener una cuenta!",
-// 			icon: 'warning',
-// 			showCancelButton: true,
-// 			confirmButtonText: 'Si, tengo!',
-// 			cancelButtonText: 'No, quiero registrarme!',
-// 			reverseButtons: true
-// 		  }).then((result) => {
-// 			if (result.isConfirmed) {
-// 			  swalWithBootstrapButtons.fire(
-// 				'Excelente!',
-// 				'Podes ingresar mediante el boton de login que se encuentra arriba a la derecha',
-// 				'success'
-// 			  )
-// 			} else if (
-// 			  /* Read more about handling dismissals below */
-// 			  result.dismiss === Swal.DismissReason.cancel
-// 			) {
-// 			  swalWithBootstrapButtons.fire(
-// 				'Cancelled',
-// 				'No pierdas tiempo, podes registrarte desde el boton de login que se encuentra arriba a la derecha',
-// 				'error'
-// 			  )
-// 			}
-// 		  })
-// 	})
-// }
-
-
 // Capturo boton de nightMode
 let nightMode = document.querySelector("#nightMode")
 
@@ -107,17 +5,6 @@ let nightMode = document.querySelector("#nightMode")
 nightMode.addEventListener("click", ()=>{
 let body = document.querySelector(".nightMode");
 activo = body.classList.toggle("nightMode-Active");
-
-// Logica que modifica el Btn de DarkMode a WhiteMode
-if (body.classList.contains("nightMode-Active")) {
-	let btnWhite  = document.querySelector(".btn-dark")
-	btnWhite.classList.toggle("btn-dark-active")
-	btnWhite.innerText = "WhiteMode"
-	// console.log(btnWhite);
-}else
-{let bntNight  = document.querySelector(".btn-dark")
-	bntNight.innerText = "NightMode"
-}
 
 // Modifico el B-G del descuento 
 let descuento = document.querySelector("#descuento")
@@ -129,13 +16,9 @@ tituloBajadaDescuento.classList.toggle("card-title-active")
 let bajadaDescuento = document.querySelector("#cardText")
 bajadaDescuento.classList.toggle("card-text-active")
 
-//capturo primera bajada y lo convierte a darkMode
-let primerBajada = document.querySelector(".primer-bajada-contenedor")
-primerBajada.classList.toggle("primer-bajada-contenedor-active")
-
 //Modifico el B-G del form y de la lista
-// let formulario = document.querySelector("#formFinal")
-// formulario.classList.toggle()
+let formulario = document.querySelector("#formFinal")
+formulario.classList.toggle()
 
 sessionStorage.setItem("ModoNoche", activo)
 activoModoNoche = sessionStorage.getItem("ModoNoche")
@@ -183,84 +66,18 @@ let valorInputName = e.target.value
 				
 			}
 			crearId(valorInputName)
-			
 })
-
 
 // ante el cambio del input password obtengo los datos ingresados 
 passwordUser.addEventListener("change", (e)=>{
 	let valorInputPass = e.target.value
 	//guardamos contraseña en sessionStorage
-	localStorage.setItem("password",valorInputPass)
-	passwordUnica = localStorage.getItem("password")
+	 localStorage.setItem("password",valorInputPass)
+ passwordUnica = localStorage.getItem("password")
 	console.log(passwordUnica);
-	
-})
 
-// Capturo el Btn "enviar" del form de login 
-let btnLogin = document.querySelector("#btn-enviar")
-// Le asigno un evento 
-btnLogin.addEventListener("click",()=>{
-// obtengo los formularios 
-	valorUser = user.value;
-	// console.log(valorUser);	
-	valorPass = passwordUser.value;
-	//Agrego sweetAlert para informar que se enviaron ok los datos
-	
-	  const Toast = Swal.mixin({
-		toast: true,
-		position: 'top-end',
-		showConfirmButton: false,
-		timer: 3000,
-		timerProgressBar: true,
-		didOpen: (toast) => {
-		  toast.addEventListener('mouseenter', Swal.stopTimer)
-		  toast.addEventListener('mouseleave', Swal.resumeTimer)
-		}
-	  })
-	  
-	  Toast.fire({
-		icon: 'success',
-		title: 'Logueado Correctamente'+`${valorUser}`
-	  })
+	})
 
-})
-
-// Capturo el Btn "enviar" del form de contacto 
-let btnFormContac = document.querySelector("#btn-enviar-contacto")
-btnFormContac.addEventListener("click",()=>{
-	// capturo el mail ingresado 
-	let mailCliente = document.querySelector("#exampleFormControlInput1")
-	   valorMail = mailCliente.value; 
-	//Agrego sweetAlert para informar que se enviaron ok los datos
-	   Swal.fire(
-		'Tu consulta fue enviada con éxito!',
-		'Gracias '+`${valorMail}`+' por enviarnos tu inquietud, en breves responderemos tu consulta.',
-		'success'
-	  )
-
-})
-
-// Capturo el Btn de descuento 
-let btnDescuento = document.querySelector("#btnDescuento")
-btnDescuento.addEventListener("click", ()=>{
-	//Agrego sweetAlert para informar que se enviaron ok los datos
-	Swal.fire(
-		'Felicitaciones! contas con un descuento del 20% en tu seguro de confianza',
-		'Para poder acceder al descuento porfavor ingresa los datos de la tarjeta de la derecha',
-		'warning'
-	  )
-})
-
-//Capturo btn de "Enviar" del form de la tarjeta
-let btnTarjeta = document.querySelector("#btnTarjeta")
-btnTarjeta.addEventListener("click" ,( )=>{
-	Swal.fire(
-		'Felicitaciones, su compra a sido realizada con éxito!',
-		'Recibira la poliza al mail que registro en el proceso de login!',
-		'success'
-	  )
-}) 
 
 
  // Array de Objetos con los productos de la App
@@ -269,21 +86,21 @@ btnTarjeta.addEventListener("click" ,( )=>{
 		nombre: "Seguro Moto Classic",
 		img: "./img/productos/SeguroMoto.jpg",
 		titulo: "Lleva tu moto donde quieras, usuala tranquilo",
-		descripcion: "A veces tu moto es tu herramienta de trabajo, no hay nada mejor que saber que esta respaldada por la mejor cobertura a tu medida, contra granizo, incendio total o parcial y contra robo o hurto",
+		descripcion: "sadsdadsadsadsadsadsadassda",
 		precio: 6500
 },
 {
 	    nombre: "Seguro Moto Plus",
 		img: "./img/productos/SeguroMotoPLus.jpg",
 		titulo: "La van a mirar muchisimo, vos estacionala tranquilo ",
-		descripcion: "Cuando tu moto es tu juguete caro no queres que nada le pase, la poliza plus esta pensada para los mas exigentes, cubre todo lo que la Classic sumando 3 caidas anuales con una franquicia de $4300 para que estes tranquilo que ante lo mas minimo vamos a estar para vos",
+		descripcion: "sadsdadsadsadsadsadsadassda",
 		precio: 12500
 }, 
 {
 	    nombre: "Seguro Auto Classic",
 		img: "./img/productos/SeguroAuto.jpg",
 		titulo: "Podes tener lo que quieras, hasta un clasico ",
-		descripcion: "Contar con un seguro que se ajuste a toda la familia, uno que te cubre en todo el mercosur. Granizo, llantas y cubiertas ilimitadas, robo y hurto parcial",
+		descripcion: "sadsdadsadsadsadsadsadassda",
 		precio: 17500
 
 }, 
@@ -291,7 +108,7 @@ btnTarjeta.addEventListener("click" ,( )=>{
 	    nombre: "Seguro Auto Plus",
 		img: "./img/productos/SeguroAutoPlus.jpg",
 		titulo: "Para los mas detallistas que salen a la aventura",
-		descripcion: "Sabes que cualquier toque de estacionamiento o rayon que te hagan cambia la estetica de tu maquina. A nosotros nos molesta igual que a vos por eso esta poliza cubre cualquier detalle que tenga tu pintura con un minimo de poliza de $7800, ademas de incluir todo lo que ofrece la cobertura Classic tambien brindamos cristales y gruas ilimitadas",
+		descripcion: "sadsdadsadsadsadsadsadassda",
 		precio: 23500
 
 }, 
@@ -299,7 +116,7 @@ btnTarjeta.addEventListener("click" ,( )=>{
 	    nombre: "Seguro Embarcaciones Classic",
 		img: "./img/productos/SeguroBarco.jpg",
 		titulo: "Poder realizar cualquier actividad con nuestro respaldo",
-		descripcion: "Seguro contra cualquier accidente nautico que pueda ocurrir tanto en moto de agua, lancha o boardingBoard",
+		descripcion: "sadsdadsadsadsadsadsadassda",
 		precio: 54500
 
 }, 
@@ -307,7 +124,7 @@ btnTarjeta.addEventListener("click" ,( )=>{
 	    nombre: "Seguro Embacaciones Plus",
 		img: "./img/productos/SegurobarcoPlus.jpg",
 		titulo: "Alta mar sin preocupaciones",
-		descripcion: "Seguro de aguas internacionales de escala global, con alerta de tormentas o mal temporada, extraccion en caso de averia tecnica en aguas profundas ademas de incluir los beneficios de la poliza Classic",
+		descripcion: "sadsdadsadsadsadsadsadassda",
 		precio: 123500
 
 }]
@@ -317,25 +134,16 @@ btnTarjeta.addEventListener("click" ,( )=>{
 
 		let contenedor = document.createElement("div")
 		contenedor.innerHTML = `<h2 class="titulo-producto" > ${producto.nombre} </h2>
-		                      <div class="contenedor-div d-flex content-center mb-25px" id="div-productos">                      
+		<div class=" d-flex content-center mb-25px" id="div-productos">                      
 		                      <img src="${producto.img}" class="img-fluid" " alt="SeguroMoto">
 							  <div class="d-flex justify-content-center" id="textoProductos"> 
 							  <div class="card-body" id="${producto.nombre}">
-							  <h3 class="card-title">${producto.titulo}</h3>
-							  <h5 class="card-text">${producto.descripcion}
-							  <h3 class="precio-producto p-2 "> Tan solo por $${producto.precio}</h3></h5>
-							  <button type="button" class="btn btn-outline-secondary p-2 " id="btnContratar" >Contratar Ahora!</button>
+							  <h5 class="card-title ">${producto.titulo}</h5>
+							  <p class="card-text">${producto.descripcion} tan solo por <h3>$${producto.precio}</h3></p>
 							  </div> 
 							  </div>`
 	   productosVarios.appendChild(contenedor)
 	}
-	//aplicando efecto mouseOver al div productos
-	
-	let divProductos = document.querySelector("#div-productos");
-	divProductos.addEventListener("click", ()=>{
-		divProductos.classList.toggle("contenedor-div-active")
-
-	}) 
 
 	//Convierto los Productos a JSON para enviarlos al nav en forma de string
 	let productosEnJson = JSON.stringify(productos) 
@@ -393,6 +201,7 @@ for (const cliente of clientesFieles) {
 
 // botonEnviar.addEventListener("click", () => alert("revisa que este todo correcto!"));
 
+//Obteniendo datos tarjeta
 const tarjeta = document.querySelector('#tarjeta'),
 	  btnAbrirFormulario = document.querySelector('#btn-abrir-formulario'),
 	  formulario = document.querySelector('#formulario-tarjeta'),
@@ -404,8 +213,9 @@ const tarjeta = document.querySelector('#tarjeta'),
 	  yearExpiracion = document.querySelector('#tarjeta .year');
 	  ccv = document.querySelector('#tarjeta .ccv');
 
-// * Volteamos la tarjeta para mostrar el frente.
-const mostrarFrente = () => {
+
+ // * Volteamos la tarjeta para mostrar el frente.
+ const mostrarFrente = () => {
 	if(tarjeta.classList.contains('active')){
 		tarjeta.classList.remove('active');
 	}
@@ -442,9 +252,6 @@ for(let i = yearActual; i <= yearActual + 8; i++){
 // * Input numero de tarjeta
 formulario.inputNumero.addEventListener('keyup', (e) => {
 	let valorInput = e.target.value;
-
-	// Capturo el numero de la tarjeta de credito que ingreso el cliente
-	let numeroDeCliente = sessionStorage.setItem("Numero de tarjeta del cliente", valorInput)
 
 	formulario.inputNumero.value = valorInput
 	// Eliminamos espacios en blanco
@@ -484,9 +291,6 @@ formulario.inputNumero.addEventListener('keyup', (e) => {
 formulario.inputNombre.addEventListener('keyup', (e) => {
 	let valorInput = e.target.value;
 
-	// Capturo en el SessionStorage el Nombre que ingresa en la tarjeta
-	let nombreDeCliente = sessionStorage.setItem("Nombre del cliente de la tarjeta", valorInput)
-
 	formulario.inputNombre.value = valorInput.replace(/[0-9]/g, '');
 	nombreTarjeta.textContent = valorInput;
 	firma.textContent = valorInput;
@@ -524,3 +328,12 @@ formulario.inputCCV.addEventListener('keyup', () => {
 
 	ccv.textContent = formulario.inputCCV.value;
 });
+
+
+
+
+
+
+ 
+
+
