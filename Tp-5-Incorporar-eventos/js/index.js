@@ -1,5 +1,99 @@
-// // Codigo optimizado x cuestion de tiempo solo agrego unos ejemplos y despues lo aplico a todo el codigo
+// No logre encontrar una api publica que tuviera contenido de autos asi que use un json aparte del que consumo los datos, no logro sumarle las opciones una vez que se selecciona la marca del auto.
 
+const cargar = async () => {
+	const response = await fetch("./autos.json")
+	// console.log(response);
+
+	const productos = await response.json();
+	//   console.log(productos);
+	
+	//  	console.log(productos.marcas);
+
+		 let marcas = productos.marcas
+		
+		 for (const modelo of marcas) {
+			let idMarca = modelo.id
+			let marcaAuto = modelo.nombre;// encierro los nombres de las marcas de los autos en formato json 
+			let modelosAutos = modelo.modelos;
+			console.log(idMarca);
+			console.log(modelosAutos);
+			
+			function cargarMarca() {
+				
+				let select =  document.querySelector("#selectMarca"); //Seleccionamos el select
+				
+				let option = document.createElement("option"); //Creamos la opcion
+					option.innerHTML = marcaAuto; //Metemos el texto en la opción
+					
+					if (marcaAuto) {
+						idMarca
+					}
+					 
+				// const found = modelosAutos.find(modelosAutos => idMarca == 1)				
+				// console.log(found);	
+
+					select.appendChild(option); //Metemos la opción en el select
+			        	
+				}
+			cargarMarca();
+			
+			
+			
+			
+				
+
+
+		}
+  };
+  
+  cargar();
+	
+
+// // Consumo de API del clima 
+// const apiClima = async ()=>{
+// 	let lista = 
+	
+// 	try{
+	
+// 		let respuesta = await fetch(`https://pokeapi.co/api/v2/pokemon/${nombre}/`)
+// 		console.log(respuesta);
+// 		let datos = await respuesta.json()
+// 		console.log(datos);
+// 	}catch(e){
+// 		console.log(e);
+// 	}
+// }
+// apiClima()
+// const buscarModelo = async () => {
+// // let respuesta = await fetch("https://api.api-ninjas.com/v1/cars?api_key=g6UMHdmsfZ9a7fFRZhqHFA==UtwgkkuCyEOu3Znm")
+// // console.log(respuesta);
+// let modelo = "touareg"
+// let modelos = await fetch ("https://api.api-ninjas.com/v1/cars?limit=2&model=" + modelo )
+// console.log(modelos);
+// }
+
+// var model = 'camry'                                          
+// function buscarModelo(model) {
+// 	auto.ajax({
+// 		method: 'GET',
+// 		url: 'https://api.api-ninjas.com/v1/cars?model=' + model,
+// 		headers: { 'X-Api-Key': 'YOUR_API_KEY'},
+// 		contentType: 'application/json',
+// 		success: function(result) {
+// 			console.log(result);
+// 		},
+// 		error: function ajaxError(jqXHR) {
+// 			console.error('Error: ', jqXHR.responseText);
+// 		}
+// 	});
+	
+// }
+// buscarModelo("camry")
+
+
+// Codigo optimizado como ejemplo
+	// ¿Que hace? envia un SweetAlert preguntando si eres mayor de edad, en caso de no serlo muestra un cartel durante 2seg y reinicia la pagina nuevamente mostrando el cartel 
+	
 const swalWithBootstrapButtons = Swal.mixin({
 	customClass: {
 	  confirmButton: 'btn btn-success',
@@ -7,27 +101,30 @@ const swalWithBootstrapButtons = Swal.mixin({
 	},
 	buttonsStyling: false
   })
-  
+  let pagina = window.onload
   swalWithBootstrapButtons.fire({
 	title: 'Eres mayor de edad?',
 	text: "Ingrese su edad para continuar",
 	icon: 'warning',
-	input: "number",
 	showCancelButton: true,
 	confirmButtonText: 'Si, soy mayor',
 	cancelButtonText: 'Soy menor de edad',
 	reverseButtons: true
   }).then((result) => {
-	// Codigo optimizado como ejemplo 
 	result.isConfirmed ? swalWithBootstrapButtons.fire(
 		 	'Puedes Ingresar!',
 		 	'Al ser mayor de edad puedes contratar un seguro.',
 		 	'success'
-		   ) : swalWithBootstrapButtons.fire(
+		    ) : swalWithBootstrapButtons.fire(
 			 	'No puedes Ingresar',
 			 	'Es muy importante ser mayor de edad para poder navegar',
 			 	'error'
-			   ) 
+			   ).then(
+				   setTimeout(
+				()=>{
+					window.location.reload()
+				}, 2000)
+				) 
 
   })
   
@@ -339,7 +436,7 @@ btnTarjeta.addEventListener("click" ,( )=>{
 
 	//Convierto los Productos a JSON para enviarlos al nav en forma de string
 	let productosEnJson = JSON.stringify(productos) 
-    console.log(productosEnJson);
+    // console.log(productosEnJson);
 	let listaDeProductosEnSession = sessionStorage.setItem("productos", productosEnJson)
 
 //Clientes que nos elijen (array de objetos que enviaremos a una lista en el home)
