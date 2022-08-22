@@ -1,53 +1,769 @@
 // No logre encontrar una api publica que tuviera contenido de autos asi que use un json aparte del que consumo los datos, no logro sumarle las opciones una vez que se selecciona la marca del auto.
 
+
 const cargar = async () => {
-	const response = await fetch("./autos.json")
+	const response = await fetch("./autos.json")// relizo la promesa que trae los datos
 	// console.log(response);
 
-	const productos = await response.json();
-	//   console.log(productos);
+	let lista = await response.json();// traigo los datos en formato Json
+	  console.log(lista);
+//----------------------------------funciona------------------------------------------
+	  // busco el array x id y dependiendo del id trae una marca para luego acceder al array de modelos dentro de la marca 
+// let bmw = lista.marcas[0].modelos[1]
+// console.log(bmw);
+
+// let {id, nombre, modelos} = bmw
+
+//  console.log(id);
+//  console.log(nombre);
+//  console.log(modelos);
+//----------------------------------funciona------------------------------------------
+
+// recorro el indice del array marcas que contiene en su interior cada marca con id y modelo 
+let marcas = lista.marcas
+
+marcas.map(element => {
+	let {id ,nombre, modelos} = element
+
+	//Con el metodo sort()ordeno alfabeticamente el array de modelos 
+	modelos.sort()
+	// console.log(nombre[1], id, modelos[1]);
+
+	let btn = document.querySelector("#btnBorrar")
+	btn.addEventListener(("click"), ()=>{
 	
-	//  	console.log(productos.marcas);
-
-		 let marcas = productos.marcas
-		
-		 for (const modelo of marcas) {
-			let idMarca = modelo.id
-			let marcaAuto = modelo.nombre;// encierro los nombres de las marcas de los autos en formato json 
-			let modelosAutos = modelo.modelos;
-			console.log(idMarca);
-			console.log(modelosAutos);
+		let marca = document.querySelector("#selectMarca")
 			
-			function cargarMarca() {
-				
-				let select =  document.querySelector("#selectMarca"); //Seleccionamos el select
-				
-				let option = document.createElement("option"); //Creamos la opcion
-					option.innerHTML = marcaAuto; //Metemos el texto en la opción
-					
-					if (marcaAuto) {
-						idMarca
-					}
-					 
-				// const found = modelosAutos.find(modelosAutos => idMarca == 1)				
-				// console.log(found);	
+		let modelo =  document.querySelector("#selectModelo"); //Select marca
+			
+		let year = document.querySelector("#selectAnioCotizacion") // Select año 			
+			
+		let km = document.querySelector("#km") // capturo km
+			
+		let cotizacion = document.querySelector("#cotizacionCreada")
+	
 
-					select.appendChild(option); //Metemos la opción en el select
-			        	
+		let edadCliente = document.querySelector("#edadCliente") //capturo edad cliente 
+			
+			const limpiar = () => {
+				for (let i = modelo.options.length; i >= 0; i--) {
+				modelo.remove(i);
 				}
-			cargarMarca();
+				for (let i = year.options.length; i >= 0; i--) {
+					year.remove(i);
+					}
+		cotizacion.remove()
+					
+			};
+			limpiar()
+	
+	})
+
+
+	//Resto 1 al Id para que los modelos coincidan con el indice del array de los modelos que comienza en 0 
+    id --
+
+	// fn que renderiza el primer select q´ permite elegir la marca. La Fn padre contiene una fn hija que renderiza los modelos de cada marca 
+	let cargarMarca =(nombre, id) => {
+		
+		let select =  document.querySelector("#selectMarca"); //Seleccionamos el select
+		
+		let option = document.createElement("option"); //Creamos la opcion
+		
+		option.innerHTML = nombre; //Metemos el texto en la opción
+		select.appendChild(option); //Metemos la opción en el select
 			
-			
-			
-			
+		
+		select.addEventListener(("change"), (e)=> {
+			let valorOpcion = e.target.value
+					// console.log(id);
+
+			if (valorOpcion == nombre) {
 				
-
-
+				rellenaModelo = (i)=>{
+				// console.log(marcas);
+				let pepino = marcas[i].modelos
+						
+				for (let i = 0; i < pepino.length ; i++) {
+					const pepi = pepino[i] 
+					    //   console.log(pepi);
+				// console.log(pepi);
+				// let e = 6
+				// console.log(marcas[`${i}`].modelos[`${e}`]);					
+		
+				let cargarModelo = (element) => {
+					let select =  document.querySelector("#selectModelo"); //Seleccionamos el select
+					
+					let option = document.createElement("option"); //Creamos la opcion
+						option.innerHTML = element; //Metemos el texto en la opción
+						select.appendChild(option); //Metemos la opción en el select
+					
+				}
+				cargarModelo(pepi)
+				
 		}
+	}
+		rellenaModelo(id)
+		// console.log(valorOpcion);
+				// console.log(id);
+			}
+			return valorOpcion
+		}) 
+		select.addEventListener(("onchange"),(e)=>{
+
+			select.reset()
+		})
+	
+	}
+	cargarMarca(nombre, id);
+});	
+// Analizo los Km 
+let km = () => {
+	let km = document.querySelector("#km")
+	km.addEventListener(("change"), (e)=>{
+		let cantidadKm = e.target.value
+		// console.log(cantidadKm);
+	})
+}
+km()
+
+// // cargo los años en el select año 
+let yearModelo = () =>{
+	let selectYear = document.querySelector("#selectAnioCotizacion")
+	selectYear.addEventListener(("click"),(e)=> {
+
+		let yearActual = new Date().getFullYear();
+			for(let i = yearActual; i >= yearActual - 25; i--){	
+			let opcion = document.createElement('option');
+			opcion.value = i;
+			opcion.innerText = i;
+			selectYear.appendChild(opcion);
+
+}
+// Capturo el año seleccionado 
+		selectYear.addEventListener(("change"),(e)=>{
+			let valorDelYear = e.target.value
+			// console.log(valorDelYear);
+		})
+
+	})
+}
+yearModelo()
+
+// Funcion que analiza los datos ingresados 
+
+let calcularPrecio = () =>{
+	let btnCalcular = document.querySelector("#btnCotizar")
+	btnCalcular.addEventListener(("click"), (e)=>{
+       
+		let marca =  document.querySelector("#selectMarca"); //Select marca
+		let valorMarca = marca.value // Capturo el value de la marca seleccionada
+		console.log(valorMarca);
+		
+		let modelo = document.querySelector("#selectModelo")
+		let valorModelo = modelo.value // capturo el modelo
+
+		let year = document.querySelector("#selectAnioCotizacion")// Select año 			
+		let valorYear = year.value // Capturo el value seleccionado 
+		console.log(valorYear);
+		// capturo km
+		let km = document.querySelector("#km")
+		let valorKm = km.value
+		console.log(valorKm);
+		//capturo edad cliente 
+		let edadCliente = document.querySelector("#edadCliente")
+		let valorEdad = edadCliente.value
+		console.log(valorEdad);
+
+		// Una vez que tengo los valores que van a modificar el $ de la poliza los proceso en la logica 
+		class Cotizacion{
+			constructor (valorMarca, valorYear, valorKm, valorEdad, valorModelo ){
+				// this.id 
+				this.Marca = valorMarca;
+				this.Year = valorYear;
+				this.Km = valorKm;
+				this.Edad = valorEdad;
+				this.Modelo = valorModelo
+			}
+		
+			procesar() {
+				// creo las variables con las que voy a modificar los valores
+				let poliza = 5500
+				let riesgoXmarca = 10000
+				let riesgoXyear = 1250
+				let riesgoXkm = 5000
+				let riesgoXedad = 4800
+				let conDescuento = 10000
+
+				let valorParcial = 0
+				
+				// Audi
+				
+				let audi = 5800 //Valor de la marca Exclusivo
+				
+				if (this.Marca == "Audi") {
+				
+				valorParcial = 	audi += poliza += riesgoXmarca
+					console.log(valorParcial);
+				
+					if (this.Edad <= "2022-01-01") {
+						valorParcial += riesgoXedad
+						console.log(valorParcial);
+					}
+					if (this.Year >= 2014) {
+						riesgoXyear += 8000
+						valorParcial += riesgoXyear
+						console.log(valorParcial);
+						
+					}
+					if (this.Year >= 2005 && this.Year <= 2013) {
+							riesgoXyear += 4000
+							valorParcial += riesgoXyear
+							console.log(valorParcial);
+					}
+					if (this.Year  <= 2004) {
+	
+						valorParcial += riesgoXyear
+						console.log(valorParcial);
+				}
+					if (this.km <= 35000) {
+						riesgoXkm += riesgoXkm * 1.5
+						valorParcial += riesgoXkm
+						console.log(valorParcial);
+					}
+					if (this.km  >=35001) {
+						valorParcial += riesgoXkm
+						console.log(valorParcial);
+					}
+					
+					
+						let resultadoCotizacion = document.querySelector("#resultadoCotizacion")
+				
+						let contenedor = document.createElement("div")
+						contenedor.innerHTML = 	`<div class="d-flex p-2" id="cotizacionCreada">
+						
+						<div class="card p-2"  style="width: 25rem;">
+												<img src="./img/seguro/seguroPoliza.jpg" class="card-img-top" alt="...">
+												<div class="card-body">
+												<h5 class="card-title">Podemos cuidar tu ${this.Modelo}</h5>
+												<p class="card-text">Creemos que para poder vivir tranquilo tu ${this.Marca} debe contar con un seguro a su medida. 
+												Por eso procesamos los datos que nos brindaste para cotizar la poliza adecuada para tu ${this.Modelo}</p>
+												</div>
+												<ul class="list-group list-group-flush">
+												<li class="list-group-item"></li>
+												<li class="list-group-item">Poliza contra todo riesgo completa</li>
+												<li class="list-group-item">$${valorParcial}</li>
+												</ul>
+												<div class="card-body">
+												<p> Podes solicitar una poliza que se ajuste a distintos presupuestos</P>
+												<p>Si sos cliente del BBVA Frances accede a enormes descuentos!</P>
+												</div>
+											</div>
+											</div>`
+				resultadoCotizacion.appendChild(contenedor)
+					
+				}
+		
+				// BMW
+				
+				let Bmw = 6400
+				
+				if (this.Marca == "BMW") {
+				
+					valorParcial = 	Bmw += poliza += riesgoXmarca
+						console.log(valorParcial);
+						
+						if (this.Edad <= "2022-01-01") {
+							valorParcial += riesgoXedad
+							console.log(valorParcial);
+						}
+						if (this.Year >= 2014) {
+							riesgoXyear += 8000
+							valorParcial += riesgoXyear
+							console.log(valorParcial);
+							
+						}
+						if (this.Year >= 2005 && this.Year <= 2013) {
+								riesgoXyear += 4000
+								valorParcial += riesgoXyear
+								console.log(valorParcial);
+						}
+						if (this.Year  <= 2004) {
+		
+							valorParcial += riesgoXyear
+							console.log(valorParcial);
+					}
+						if (this.km <= 35000) {
+							riesgoXkm += riesgoXkm * 1.5
+							valorParcial += riesgoXkm
+							console.log(valorParcial);
+						}
+						if (this.km  >=35001) {
+							valorParcial += riesgoXkm
+							console.log(valorParcial);
+						}
+
+					
+					
+						let resultadoCotizacion = document.querySelector("#resultadoCotizacion")
+						let contenedor = document.createElement("div")
+						contenedor.innerHTML = 	`<div class="d-flex p-2" id="cotizacionCreada">
+						
+						<div class="card p-2"  style="width: 25rem;">
+												<img src="./img/seguro/seguroPoliza.jpg" class="card-img-top" alt="...">
+												<div class="card-body">
+												<h5 class="card-title">Podemos cuidar tu ${this.Modelo}</h5>
+												<p class="card-text">Creemos que para poder vivir tranquilo tu ${this.Marca} debe contar con un seguro a su medida. 
+												Por eso procesamos los datos que nos brindaste para cotizar la poliza adecuada para tu ${this.Modelo}</p>
+												</div>
+												<ul class="list-group list-group-flush">
+												<li class="list-group-item"></li>
+												<li class="list-group-item">Poliza contra todo riesgo completa</li>
+												<li class="list-group-item">$${valorParcial}</li>
+												</ul>
+												<div class="card-body">
+												<p> Podes solicitar una poliza que se ajuste a distintos presupuestos</P>
+												<p>Si sos cliente del BBVA Frances accede a enormes descuentos!</P>
+												</div>
+											</div>
+											</div>`
+				resultadoCotizacion.appendChild(contenedor)
+				}
+					
+					
+
+					// Chevrolet
+					
+					let chevrolet = 2300
+					
+					if (this.Marca == "Chevrolet") {
+				
+						valorParcial = 	chevrolet += poliza += riesgoXmarca
+							console.log(valorParcial);
+						
+							if (this.Edad <= "2022-01-01") {
+								valorParcial += riesgoXedad
+								console.log(valorParcial);
+							}
+							if (this.Year >= 2014) {
+								riesgoXyear += 8000
+								valorParcial += riesgoXyear
+								console.log(valorParcial);
+								
+							}
+							if (this.Year >= 2005 && this.Year <= 2013) {
+									riesgoXyear += 4000
+									valorParcial += riesgoXyear
+									console.log(valorParcial);
+							}
+							if (this.Year  <= 2004) {
+			
+								valorParcial += riesgoXyear
+								console.log(valorParcial);
+						}
+							if (this.km <= 35000) {
+								riesgoXkm += riesgoXkm * 1.5
+								valorParcial += riesgoXkm
+								console.log(valorParcial);
+							}
+							if (this.km  >=35001) {
+								valorParcial += riesgoXkm
+								console.log(valorParcial);
+							}
+							
+						let resultadoCotizacion = document.querySelector("#resultadoCotizacion")
+				
+						let contenedor = document.createElement("div")
+						contenedor.innerHTML = 	`<div class="d-flex p-2" id="cotizacionCreada">
+						
+						<div class="card p-2"  style="width: 25rem;">
+												<img src="./img/seguro/seguroPoliza.jpg" class="card-img-top" alt="...">
+												<div class="card-body">
+												<h5 class="card-title">Podemos cuidar tu ${this.Modelo}</h5>
+												<p class="card-text">Creemos que para poder vivir tranquilo tu ${this.Marca} debe contar con un seguro a su medida. 
+												Por eso procesamos los datos que nos brindaste para cotizar la poliza adecuada para tu ${this.Modelo}</p>
+												</div>
+												<ul class="list-group list-group-flush">
+												<li class="list-group-item"></li>
+												<li class="list-group-item">Poliza contra todo riesgo completa</li>
+												<li class="list-group-item">$${valorParcial}</li>
+												</ul>
+												<div class="card-body">
+												<p> Podes solicitar una poliza que se ajuste a distintos presupuestos</P>
+												<p>Si sos cliente del BBVA Frances accede a enormes descuentos!</P>
+												</div>
+											</div>
+											</div>`
+				resultadoCotizacion.appendChild(contenedor)
+						}
+
+
+						//Citroen
+
+						let citroen = 1890
+						
+						if (this.Marca == "Citroen") {
+				
+							valorParcial = 	citroen += poliza += riesgoXmarca
+								console.log(valorParcial);
+							
+								if (this.Edad <= "2022-01-01") {
+									valorParcial += riesgoXedad
+									console.log(valorParcial);
+								}
+								if (this.Year >= 2014) {
+									riesgoXyear += 8000
+									valorParcial += riesgoXyear
+									console.log(valorParcial);
+									
+								}
+								if (this.Year >= 2005 && this.Year <= 2013) {
+										riesgoXyear += 4000
+										valorParcial += riesgoXyear
+										console.log(valorParcial);
+								}
+								if (this.Year  <= 2004) {
+				
+									valorParcial += riesgoXyear
+									console.log(valorParcial);
+							}
+								if (this.km <= 35000) {
+									riesgoXkm += riesgoXkm * 1.5
+									valorParcial += riesgoXkm
+									console.log(valorParcial);
+								}
+								if (this.km  >=35001) {
+									valorParcial += riesgoXkm
+									console.log(valorParcial);
+								}
+
+								let resultadoCotizacion = document.querySelector("#resultadoCotizacion")
+				
+								let contenedor = document.createElement("div")
+								contenedor.innerHTML = 	`<div class="d-flex p-2" id="cotizacionCreada">
+								
+								<div class="card p-2"  style="width: 25rem;">
+														<img src="./img/seguro/seguroPoliza.jpg" class="card-img-top" alt="...">
+														<div class="card-body">
+														<h5 class="card-title">Podemos cuidar tu ${this.Modelo}</h5>
+														<p class="card-text">Creemos que para poder vivir tranquilo tu ${this.Marca} debe contar con un seguro a su medida. 
+														Por eso procesamos los datos que nos brindaste para cotizar la poliza adecuada para tu ${this.Modelo}</p>
+														</div>
+														<ul class="list-group list-group-flush">
+														<li class="list-group-item"></li>
+														<li class="list-group-item">Poliza contra todo riesgo completa</li>
+														<li class="list-group-item">$${valorParcial}</li>
+														</ul>
+														<div class="card-body">
+														<p> Podes solicitar una poliza que se ajuste a distintos presupuestos</P>
+														<p>Si sos cliente del BBVA Frances accede a enormes descuentos!</P>
+														</div>
+													</div>
+													</div>`
+						resultadoCotizacion.appendChild(contenedor)
+							}
+							
+							//Daihatsu
+
+							let dai = 800
+
+							if (this.Marca == "Daihatsu") {
+				
+								valorParcial = 	dai += poliza += riesgoXmarca
+									console.log(valorParcial);
+								
+									if (this.Edad <= "2022-01-01") {
+										valorParcial += riesgoXedad
+										console.log(valorParcial);
+									}
+									if (this.Year >= 2014) {
+										riesgoXyear += 8000
+										valorParcial += riesgoXyear
+										console.log(valorParcial);
+										
+									}
+									if (this.Year >= 2005 && this.Year <= 2013) {
+											riesgoXyear += 4000
+											valorParcial += riesgoXyear
+											console.log(valorParcial);
+									}
+									if (this.Year  <= 2004) {
+					
+										valorParcial += riesgoXyear
+										console.log(valorParcial);
+								}
+									if (this.km <= 35000) {
+										riesgoXkm += riesgoXkm * 1.5
+										valorParcial += riesgoXkm
+										console.log(valorParcial);
+									}
+									if (this.km  >=35001) {
+										valorParcial += riesgoXkm
+										console.log(valorParcial);
+									}
+									
+						let resultadoCotizacion = document.querySelector("#resultadoCotizacion")
+				
+						let contenedor = document.createElement("div")
+								contenedor.innerHTML = 	`<div class="d-flex p-2" id="cotizacionCreada">
+								
+								<div class="card p-2"  style="width: 25rem;">
+														<img src="./img/seguro/seguroPoliza.jpg" class="card-img-top" alt="...">
+														<div class="card-body">
+														<h5 class="card-title">Podemos cuidar tu ${this.Modelo}</h5>
+														<p class="card-text">Creemos que para poder vivir tranquilo tu ${this.Marca} debe contar con un seguro a su medida. 
+														Por eso procesamos los datos que nos brindaste para cotizar la poliza adecuada para tu ${this.Modelo}</p>
+														</div>
+														<ul class="list-group list-group-flush">
+														<li class="list-group-item"></li>
+														<li class="list-group-item">Poliza contra todo riesgo completa</li>
+														<li class="list-group-item">$${valorParcial}</li>
+														</ul>
+														<div class="card-body">
+														<p> Podes solicitar una poliza que se ajuste a distintos presupuestos</P>
+														<p>Si sos cliente del BBVA Frances accede a enormes descuentos!</P>
+														</div>
+													</div>
+													</div>`
+						resultadoCotizacion.appendChild(contenedor)
+								}
+
+
+								//Dodge 
+
+								let dodge = 3201
+
+								if (this.Marca == "Dodge") {
+				
+									valorParcial = dodge += poliza += riesgoXmarca
+										console.log(valorParcial);
+									
+										if (this.Edad <= "2022-01-01") {
+											valorParcial += riesgoXedad
+											console.log(valorParcial);
+										}
+										if (this.Year >= 2014) {
+											riesgoXyear += 8000
+											valorParcial += riesgoXyear
+											console.log(valorParcial);
+											
+										}
+										if (this.Year >= 2005 && this.Year <= 2013) {
+												riesgoXyear += 4000
+												valorParcial += riesgoXyear
+												console.log(valorParcial);
+										}
+										if (this.Year  <= 2004) {
+						
+											valorParcial += riesgoXyear
+											console.log(valorParcial);
+									}
+										if (this.km <= 35000) {
+											riesgoXkm += riesgoXkm * 1.5
+											valorParcial += riesgoXkm
+											console.log(valorParcial);
+										}
+										if (this.km  >=35001) {
+											valorParcial += riesgoXkm
+											console.log(valorParcial);
+										}
+										
+						let resultadoCotizacion = document.querySelector("#resultadoCotizacion")
+				
+						let contenedor = document.createElement("div")
+						contenedor.innerHTML = 	`<div class="d-flex p-2" id="cotizacionCreada">
+						
+						<div class="card p-2"  style="width: 25rem;">
+												<img src="./img/seguro/seguroPoliza.jpg" class="card-img-top" alt="...">
+												<div class="card-body">
+												<h5 class="card-title">Podemos cuidar tu ${this.Modelo}</h5>
+												<p class="card-text">Creemos que para poder vivir tranquilo tu ${this.Marca} debe contar con un seguro a su medida. 
+												Por eso procesamos los datos que nos brindaste para cotizar la poliza adecuada para tu ${this.Modelo}</p>
+												</div>
+												<ul class="list-group list-group-flush">
+												<li class="list-group-item"></li>
+												<li class="list-group-item">Poliza contra todo riesgo completa</li>
+												<li class="list-group-item">$${valorParcial}</li>
+												</ul>
+												<div class="card-body">
+												<p> Podes solicitar una poliza que se ajuste a distintos presupuestos</P>
+												<p>Si sos cliente del BBVA Frances accede a enormes descuentos!</P>
+												</div>
+											</div>
+											</div>`
+				resultadoCotizacion.appendChild(contenedor)
+									}
+
+
+									// Fiat
+
+									let fiat = 1832
+
+									if (this.Marca == "Fiat") {
+				
+										valorParcial = 	fiat += poliza += riesgoXmarca
+											console.log(valorParcial);
+											
+											if (this.Edad <= "2022-01-01") {
+												valorParcial += riesgoXedad
+												console.log(valorParcial);
+											}
+											if (this.Year >= 2014) {
+												riesgoXyear += 8000
+												valorParcial += riesgoXyear
+												console.log(valorParcial);
+												
+											}
+											if (this.Year >= 2005 && this.Year <= 2013) {
+													riesgoXyear += 4000
+													valorParcial += riesgoXyear
+													console.log(valorParcial);
+											}
+											if (this.Year  <= 2004) {
+							
+												valorParcial += riesgoXyear
+												console.log(valorParcial);
+										}
+											if (this.km <= 35000) {
+												riesgoXkm += riesgoXkm * 1.5
+												valorParcial += riesgoXkm
+												console.log(valorParcial);
+											}
+											if (this.km  >=35001) {
+												valorParcial += riesgoXkm
+												console.log(valorParcial);
+											}
+
+						let resultadoCotizacion = document.querySelector("#resultadoCotizacion")
+				
+						let contenedor = document.createElement("div")
+								contenedor.innerHTML = 	`<div class="d-flex p-2" id="cotizacionCreada">
+								
+								<div class="card p-2"  style="width: 25rem;">
+														<img src="./img/seguro/seguroPoliza.jpg" class="card-img-top" alt="...">
+														<div class="card-body">
+														<h5 class="card-title">Podemos cuidar tu ${this.Modelo}</h5>
+														<p class="card-text">Creemos que para poder vivir tranquilo tu ${this.Marca} debe contar con un seguro a su medida. 
+														Por eso procesamos los datos que nos brindaste para cotizar la poliza adecuada para tu ${this.Modelo}</p>
+														</div>
+														<ul class="list-group list-group-flush">
+														<li class="list-group-item"></li>
+														<li class="list-group-item">Poliza contra todo riesgo completa</li>
+														<li class="list-group-item">$${valorParcial}</li>
+														</ul>
+														<div class="card-body">
+														<p> Podes solicitar una poliza que se ajuste a distintos presupuestos</P>
+														<p>Si sos cliente del BBVA Frances accede a enormes descuentos!</P>
+														</div>
+													</div>
+													</div>`
+						resultadoCotizacion.appendChild(contenedor)
+										}
+
+										//Ford
+
+										let ford = 2890
+
+										if (this.Marca == "Ford") {
+				
+											valorParcial = ford += poliza += riesgoXmarca
+												console.log(valorParcial);
+												
+												if (this.Edad <= "2022-01-01") {
+													valorParcial += riesgoXedad
+													console.log(valorParcial);
+												}
+												if (this.Year >= 2014) {
+													riesgoXyear += 8000
+													valorParcial += riesgoXyear
+													console.log(valorParcial);
+													
+												}
+												if (this.Year >= 2005 && this.Year <= 2013) {
+														riesgoXyear += 4000
+														valorParcial += riesgoXyear
+														console.log(valorParcial);
+												}
+												if (this.Year  <= 2004) {
+								
+													valorParcial += riesgoXyear
+													console.log(valorParcial);
+											}
+												if (this.km <= 35000) {
+													riesgoXkm += riesgoXkm * 1.5
+													valorParcial += riesgoXkm
+													console.log(valorParcial);
+												}
+												if (this.km  >=35001) {
+													valorParcial += riesgoXkm
+													console.log(valorParcial);
+												}
+
+						let resultadoCotizacion = document.querySelector("#resultadoCotizacion")
+				
+						let contenedor = document.createElement("div")
+								contenedor.innerHTML = 	`<div class="d-flex p-2" id="cotizacionCreada">
+								
+								<div class="card p-2"  style="width: 25rem;">
+														<img src="./img/seguro/seguroPoliza.jpg" class="card-img-top" alt="...">
+														<div class="card-body">
+														<h5 class="card-title">Podemos cuidar tu ${this.Modelo}</h5>
+														<p class="card-text">Creemos que para poder vivir tranquilo tu ${this.Marca} debe contar con un seguro a su medida. 
+														Por eso procesamos los datos que nos brindaste para cotizar la poliza adecuada para tu ${this.Modelo}</p>
+														</div>
+														<ul class="list-group list-group-flush">
+														<li class="list-group-item"></li>
+														<li class="list-group-item">Poliza contra todo riesgo completa</li>
+														<li class="list-group-item">$${valorParcial}</li>
+														</ul>
+														<div class="card-body">
+														<p> Podes solicitar una poliza que se ajuste a distintos presupuestos</P>
+														<p>Si sos cliente del BBVA Frances accede a enormes descuentos!</P>
+														</div>
+													</div>
+													</div>`
+						resultadoCotizacion.appendChild(contenedor)
+											}
+
+			}
+			
+		}
+
+
+
+		
+		
+		let nuevaCotizacion = new Cotizacion(valorMarca, valorYear, valorKm, valorEdad, valorModelo)
+		console.log(nuevaCotizacion);
+		nuevaCotizacion.procesar()
+
+// Agregar al session storage lo que el cliente registra
+		let datosCliente = sessionStorage.setItem(nuevaCotizacion, "Cotizacion cliente")
+		console.log(datosCliente);
+
+		
+
+
+
+
+
+	})
+	
+	
+}
+calcularPrecio()
+// Creo el cartel con el valor de la cotizacion dependiendo todas las variables 
+
+
+
+
+
+
   };
-  
+  // ejecuto la fn padre, asyn  
   cargar();
 	
+
 
 // // Consumo de API del clima 
 // const apiClima = async ()=>{
@@ -104,7 +820,7 @@ const swalWithBootstrapButtons = Swal.mixin({
   let pagina = window.onload
   swalWithBootstrapButtons.fire({
 	title: 'Eres mayor de edad?',
-	text: "Ingrese su edad para continuar",
+	text: "Seleccione una opcion para poder continuar",
 	icon: 'warning',
 	showCancelButton: true,
 	confirmButtonText: 'Si, soy mayor',
@@ -128,73 +844,7 @@ const swalWithBootstrapButtons = Swal.mixin({
 
   })
   
-  // Codigo a perfeccionar que aun no funciona 
-
-// let btnContratarProducto = document.querySelector("#btnContratar");
-// console.log(btnContratarProducto + 1 );
-// btnContratarProducto.addEventListener('click',()=>{
-
-// 	console.log(btnContratar);
-// 	Swal.fire({
-// 		title: 'Are you sure?',
-// 		text: "You won't be able to revert this!",
-// 		icon: 'warning',
-// 		showCancelButton: true,
-// 		confirmButtonColor: '#3085d6',
-// 		cancelButtonColor: '#d33',
-// 		confirmButtonText: 'Yes, delete it!'
-// 	  }).then((result) => {
-// 		if (result.isConfirmed) {
-// 		  Swal.fire(
-// 			'Deleted!',
-// 			'Your file has been deleted.',
-// 			'success'
-// 		  )
-// 		}
-// 	  })
-// })
-// Capturo el body 
-// let nav = document.querySelector("#nav");
-// function captarCliente(nav) {
-	
-// 	nav.addEventListener("mouseleave",()=>{
-// 		console.log(1);
-// 		const swalWithBootstrapButtons = Swal.mixin({
-// 			customClass: {
-// 			  confirmButton: 'btn btn-success',
-// 			  cancelButton: 'btn btn-danger'
-// 			},
-// 			buttonsStyling: false
-// 		  })
-		  
-// 		  swalWithBootstrapButtons.fire({
-// 			title: 'Ya estas registrado?',
-// 			text: "Para poder realizar la compra tenes que tener una cuenta!",
-// 			icon: 'warning',
-// 			showCancelButton: true,
-// 			confirmButtonText: 'Si, tengo!',
-// 			cancelButtonText: 'No, quiero registrarme!',
-// 			reverseButtons: true
-// 		  }).then((result) => {
-// 			if (result.isConfirmed) {
-// 			  swalWithBootstrapButtons.fire(
-// 				'Excelente!',
-// 				'Podes ingresar mediante el boton de login que se encuentra arriba a la derecha',
-// 				'success'
-// 			  )
-// 			} else if (
-// 			  /* Read more about handling dismissals below */
-// 			  result.dismiss === Swal.DismissReason.cancel
-// 			) {
-// 			  swalWithBootstrapButtons.fire(
-// 				'Cancelled',
-// 				'No pierdas tiempo, podes registrarte desde el boton de login que se encuentra arriba a la derecha',
-// 				'error'
-// 			  )
-// 			}
-// 		  })
-// 	})
-// }
+  
 
 
 // Capturo boton de nightMode
@@ -413,17 +1063,23 @@ btnTarjeta.addEventListener("click" ,( )=>{
 		let productosVarios = document.querySelector("#productosVarios")
 
 		let contenedor = document.createElement("div")
-		contenedor.innerHTML = `<h2 class="titulo-producto" > ${producto.nombre} </h2>
-		                      <div class="contenedor-div d-flex content-center mb-25px" id="div-productos">                      
-		                      <img src="${producto.img}" class="img-fluid" " alt="SeguroMoto">
-							  <div class="d-flex justify-content-center" id="textoProductos"> 
-							  <div class="card-body" id="${producto.nombre}">
-							  <h3 class="card-title">${producto.titulo}</h3>
-							  <h5 class="card-text">${producto.descripcion}
-							  <h3 class="precio-producto p-2 "> Tan solo por $${producto.precio}</h3></h5>
-							  <button type="button" class="btn btn-outline-secondary p-2 " id="btnContratar" >Contratar Ahora!</button>
-							  </div> 
-							  </div>`
+		
+		contenedor.innerHTML = `<div class="container text-center">
+								<div class="row ">
+								<div class="col">
+									<h2 class="titulo-producto" > ${producto.nombre} </h2>
+								  <div class="contenedor-div d-flex content-center mb-25px" id="div-productos">                      
+								  <img src="${producto.img}" class="img-fluid" " alt="SeguroMoto">
+								  <div class="d-flex justify-content-center" id="textoProductos"> 
+								  <div class="card-body" id="${producto.nombre}">
+								  <h3 class="card-title">${producto.titulo}</h3>
+								  <h5 class="card-text">${producto.descripcion}
+								  <h3 class="precio-producto p-2 "> Tan solo por $${producto.precio}</h3></h5>
+								  <button type="button" class="btn btn-outline-secondary p-2 " id="btnContratar" >Contratar Ahora!</button>
+								  </div> 
+								  </div>
+								  </div>
+								  </div>`
 	   productosVarios.appendChild(contenedor)
 	}
 	//aplicando efecto mouseOver al div productos
@@ -438,6 +1094,7 @@ btnTarjeta.addEventListener("click" ,( )=>{
 	let productosEnJson = JSON.stringify(productos) 
     // console.log(productosEnJson);
 	let listaDeProductosEnSession = sessionStorage.setItem("productos", productosEnJson)
+
 
 //Clientes que nos elijen (array de objetos que enviaremos a una lista en el home)
 

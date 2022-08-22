@@ -2,6 +2,14 @@
     font-family: 'Poppins', sans-serif;
     font-size: 18px;
 }
+
+/* Cotizacion  */
+#columnaCotizacion{
+	margin: 15 25px;
+	padding: 15px;
+
+}
+
 /* Modos oscuros  */
 .nightMode-Active {
 	background-color: #797979a8;
@@ -27,19 +35,42 @@ background-color:white;
 color: #000;
 }
 /* fin modos oscuros */
+/* Cambio de color al BG sedunda bajada  */
+
+.primer-bajada-contenedor{
+	background-color: rgba(255, 255, 0, 0.778);
+}
+/* centrando cotizacion  */
+
+#cotizacionCreada{
+	margin-left: 32.5%;
+}
+
+
 /* Cambio de color de selectores de productos */
 
 .contenedor-div-active {
 
 	background-color: #fec40478;
 }
+/* fecha de nacimiento */
+.tituloFecha{
+	font-size: 18px;
+	margin-left:15px;
+}
 
+.fechaCotizacion{
+
+	justify-content: center;
+}
 
 /* texto productos */
 .titulo-producto{
 	padding-left: 9px;
 	margin-left:25px;
 	font-weight: 900;
+	margin-top: 45px;
+	margin-bottom: 35px;
 }
 
 .card-title{
@@ -401,3 +432,4 @@ padding: 40px;
 .formulario-tarjeta .btn-enviar:hover {
 	background: #1850b1;
 }
+
