@@ -67,9 +67,11 @@
         </div>
       <!--Fin del carrusel -->
       <!-- Comienza el contenido de la pagina-->
-        <div class=".container-fluid" id="listadoAutos">
-          <div class="flexbox">
-            <h2 class="titulo-producto text-center">Cotizamos tu seguro en el momento! </h2>
+
+      <div class="container-fluid" id="divDinamico"></div>
+        <div class="container-fluid" id="listadoAutos">
+          <div class="container-flex" id="cajaDinamica">
+            <!-- <h2 class="primer-bajada-titulo text-center" id="tituloDinamico">Cotizamos tu seguro en el momento! </h2> -->
             <form action="" id="formularioCotizacion">    
             <div class="container text-center">
                   <div class="row">
@@ -134,6 +136,7 @@
                     </div>
                   </div>
                   
+                  <div class="flex-container"></div>
                   <div id="resultadoCotizacion"></div>
                 </form>
                 </div>  
@@ -149,17 +152,18 @@
         <!-- Inicio de acordeon -->
         <div class="productosVarios" id="productosVarios"></div>
         <!-- Fin de acordeon -->
+        <div class="container-flex" id="carrito"></div>
         <!--Titulo contratacion-->
-        <div class="titulo-tarjeta">
-         <strong><h2>Quieres contratarnos?</h2></strong> 
-         <h4>Conoce los beneficios que tenemos disponibles y no dudes en contratarnos.</h4>
+        <div class="container-flex text-center">
+         <strong><h2 class="primer-bajada-titulo">Quieres contratarnos?</h2></strong> 
+         <h4 class="primer-bajada-parrafo">Conoce los beneficios que tenemos disponibles y no dudes en contratarnos.</h4>
         </div>
         <!--Fila de tarjeta de credito y de tarjeta de descuento-->
         <div class="container text-center" id="nightMode">
           <div class="row">
             <div class="col w-85">
-              <div class="card" style="width: 25rem;">
-                <img src="./img/descuentobbva.jpeg" class="card-img-top" alt="descuentobbva">
+              <div class="card" id="cajaDescuento" style="width: 25rem;">
+                <img src="./img/descuentobbva.jpeg" id="imgDescuento" class="card-img-top" alt="descuentobbva">
                 <div class="card-body" id="descuento">
                   <h3 class="card-title" id="cardTitle">Si sos cliente del BBVA Frances tenes grandes descuentos!</h3>
                   <h5 class="card-text" id="cardText">No importa que categoria de tarjeta tengas, en Apolo seguro le damos a todos nuestros clientes un beneficio por igual.
@@ -290,24 +294,27 @@
                     </div>
                 </form>
             </div>
-            <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 py-4 bg-white">
-                <h2>Clientes que nos siguen eligiendo.</h2>
-                <table class="table table-dark table-striped col-sm-12 col-md-8 col-lg-8 col-xl-8" id="tabla-clientes">
-                    <thead>
-                        <tr>
-                            <th >#</th>
-                            <th >Nombre y Apellido</th>
-                            <th >Vehiculo</th>
-                            <th >Km</th>
-                        </tr>
-                    </thead >
-                    <tbody id="columna-cliente">
-                        
-                        </tr>
-                    </tbody>
-                </table>
             
-        </div>
+              <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 py-4 bg-white" id="clientesHabituales" >
+                  <h2>Clientes que nos siguen eligiendo.</h2>
+                  <table class="table table-dark table-striped col-sm-12 col-md-8 col-lg-8 col-xl-8" id="tabla-clientes">
+                      <thead >
+                          <tr >
+                              <th >#</th>
+                              <th >Nombre y Apellido</th>
+                              <th >Vehiculo</th>
+                              <th >Km</th>
+                          </tr>
+                      </thead >
+                      <tbody id="columna-cliente">
+                          
+                          </tr>
+                      </tbody>
+                  </table>
+              
+          </div>
+
+           
     </div>
     <!--Fin de form de contacto y lista de usuarios -->
   </div>

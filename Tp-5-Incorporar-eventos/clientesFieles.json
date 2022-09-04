@@ -1,0 +1,25 @@
+
+[{
+    "id": 1,
+    "nombre": "Juan Perez",
+    "vehiculo": "tesla Model S",
+    "km": 58000
+},
+{
+    "id": 2,
+    "nombre": "Miguel Ramirez",
+    "vehiculo": "Porche Taycan",
+    "km": 5000
+},
+{
+    "id": 3,
+    "nombre": "Brenda Sessolo",
+    "vehiculo": "Audi Q5",
+    "km":8000
+},
+{
+    "id": 4,
+    "nombre": "Diego Fernandez",
+    "vehiculo": "Aston Martin Db9",
+    "km": 500
+}]

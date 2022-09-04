@@ -1,0 +1,46 @@
+ [{
+    "nombre": "Seguro Moto Classic",
+    "img": "./img/productos/SeguroMoto.jpg",
+    "titulo": "Lleva tu moto donde quieras, usuala tranquilo",
+    "descripcion": "A veces tu moto es tu herramienta de trabajo, no hay nada mejor que saber que esta respaldada por la mejor cobertura a tu medida, contra granizo, incendio total o parcial y contra robo o hurto",
+    "precio": 6500
+},
+{
+    "nombre": "Seguro Moto Plus",
+    "img": "./img/productos/SeguroMotoPLus.jpg",
+    "titulo": "La van a mirar muchisimo, vos estacionala tranquilo ",
+    "descripcion": "Cuando tu moto es tu juguete caro no queres que nada le pase, la poliza plus esta pensada para los mas exigentes, cubre todo lo que la Classic sumando 3 caidas anuales con una franquicia de $4300 para que estes tranquilo que ante lo mas minimo vamos a estar para vos",
+    "precio": 12500
+}, 
+{
+    "nombre": "Seguro Auto Classic",
+    "img": "./img/productos/SeguroAuto.jpg",
+    "titulo": "Podes tener lo que quieras, hasta un clasico ",
+    "descripcion": "Contar con un seguro que se ajuste a toda la familia, uno que te cubre en todo el mercosur. Granizo, llantas y cubiertas ilimitadas, robo y hurto parcial",
+    "precio": 17500
+
+}, 
+{
+    "nombre": "Seguro Auto Plus",
+    "img": "./img/productos/SeguroAutoPlus.jpg",
+    "titulo": "Para los mas detallistas que salen a la aventura",
+    "descripcion": "Sabes que cualquier toque de estacionamiento o rayon que te hagan cambia la estetica de tu maquina. A nosotros nos molesta igual que a vos por eso esta poliza cubre cualquier detalle que tenga tu pintura con un minimo de poliza de $7800, ademas de incluir todo lo que ofrece la cobertura Classic tambien brindamos cristales y gruas ilimitadas",
+    "precio": 23500
+
+}, 
+{
+    "nombre": "Seguro Embarcaciones Classic",
+    "img": "./img/productos/SeguroBarco.jpg",
+    "titulo": "Poder realizar cualquier actividad con nuestro respaldo",
+    "descripcion": "Seguro contra cualquier accidente nautico que pueda ocurrir tanto en moto de agua, lancha o boardingBoard",
+    "precio": 54500
+
+}, 
+{
+    "nombre": "Seguro Embacaciones Plus",
+    "img": "./img/productos/SegurobarcoPlus.jpg",
+    "titulo": "Alta mar sin preocupaciones",
+    "descripcion": "Seguro de aguas internacionales de escala global, con alerta de tormentas o mal temporada, extraccion en caso de averia tecnica en aguas profundas ademas de incluir los beneficios de la poliza Classic",
+    "precio": 123500
+
+}]

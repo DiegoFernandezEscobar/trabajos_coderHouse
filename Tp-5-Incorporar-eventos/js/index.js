@@ -907,24 +907,56 @@ user.addEventListener("change",(e)=>{
 
 let valorInputName = e.target.value
 
-	function crearId(valorInputName){	  
+	function crearId(valorInputName){	
+		let btnEnviar = document.querySelector("#btn-enviar")
+		btnEnviar.addEventListener(("click"),(e)=>{
+			e.preventDefault()
+			let contenedorFormLogin = document.querySelector("#contenedorFormLogin")
+			contenedorFormLogin.addEventListener("click", ()=>{
+				//Al hacer click le sumo la clase active que muestra el formulario de login
+				contenedorFormLogin.classList.toggle("formulario-login-active")
+				let nombreDato = document.querySelector("#login")
+				nombreDato.innerHTML = "logOut"
+			})
+		})   
 		if (!valorInputName == "") {
 			// creo la variable id que registra los segundos como id unico  
 			let fecha = new Date(); 
 			let segundos = fecha.getSeconds();
 			let id =  segundos   
-			   console.log(id); 
+			//    console.log(id); 
 				 
+			
 			let usuarioConId = valorInputName + "ID" + 1 + id;
-				console.log(usuarioConId);
+				// console.log(usuarioConId);
 			
 			let usuario;
+			
+			
 			let usuarioConSession = sessionStorage.getItem("usuario")
 			// Se fija si hay un usuario almacenado en la sessionStorage, si lo encuentra lo almacena en usuario, sino lo crea a travez del valor del inputName 
 			if (usuarioConSession) {
 				usuario = usuarioConSession
 			}
 			 usuario = sessionStorage.setItem("userName", valorInputName)
+		
+			//Recupero el valor almacenado en el sessionSotorage y lo almaceno en una variable para utilizarlo
+			 let elNombre = sessionStorage.getItem("userName")
+			 // a revisar!
+			 
+			 let crearTitulo = (elNombre)=>{
+				 
+				 
+				 let div = document.querySelector("#divDinamico")
+				 let titulo = document.createElement("h1")
+				 
+				 titulo.innerHTML = `<h1 class="primer-bajada-titulo text-center" >Bienvenido ${elNombre}, gracias por confiar en nosotros!</h1>`
+				 
+				 div.appendChild(titulo)
+				 
+				}
+				console.log(elNombre);
+			    crearTitulo(elNombre)
 			}
 			
 				
@@ -1010,139 +1042,77 @@ btnTarjeta.addEventListener("click" ,( )=>{
 }) 
 
 
- // Array de Objetos con los productos de la App
+ const cargarProductos = async () => {
+	const response = await fetch("./productos.json")// relizo la promesa que trae los datos
+	// console.log(response);
 
-	let productos = [{
-		nombre: "Seguro Moto Classic",
-		img: "./img/productos/SeguroMoto.jpg",
-		titulo: "Lleva tu moto donde quieras, usuala tranquilo",
-		descripcion: "A veces tu moto es tu herramienta de trabajo, no hay nada mejor que saber que esta respaldada por la mejor cobertura a tu medida, contra granizo, incendio total o parcial y contra robo o hurto",
-		precio: 6500
-},
-{
-	    nombre: "Seguro Moto Plus",
-		img: "./img/productos/SeguroMotoPLus.jpg",
-		titulo: "La van a mirar muchisimo, vos estacionala tranquilo ",
-		descripcion: "Cuando tu moto es tu juguete caro no queres que nada le pase, la poliza plus esta pensada para los mas exigentes, cubre todo lo que la Classic sumando 3 caidas anuales con una franquicia de $4300 para que estes tranquilo que ante lo mas minimo vamos a estar para vos",
-		precio: 12500
-}, 
-{
-	    nombre: "Seguro Auto Classic",
-		img: "./img/productos/SeguroAuto.jpg",
-		titulo: "Podes tener lo que quieras, hasta un clasico ",
-		descripcion: "Contar con un seguro que se ajuste a toda la familia, uno que te cubre en todo el mercosur. Granizo, llantas y cubiertas ilimitadas, robo y hurto parcial",
-		precio: 17500
+	let lista = await response.json();// traigo los datos en formato Json
+	  console.log(lista);	
 
-}, 
-{
-	    nombre: "Seguro Auto Plus",
-		img: "./img/productos/SeguroAutoPlus.jpg",
-		titulo: "Para los mas detallistas que salen a la aventura",
-		descripcion: "Sabes que cualquier toque de estacionamiento o rayon que te hagan cambia la estetica de tu maquina. A nosotros nos molesta igual que a vos por eso esta poliza cubre cualquier detalle que tenga tu pintura con un minimo de poliza de $7800, ademas de incluir todo lo que ofrece la cobertura Classic tambien brindamos cristales y gruas ilimitadas",
-		precio: 23500
+// {nombre, img, titulo, descripcion, precio} = lista
 
-}, 
-{
-	    nombre: "Seguro Embarcaciones Classic",
-		img: "./img/productos/SeguroBarco.jpg",
-		titulo: "Poder realizar cualquier actividad con nuestro respaldo",
-		descripcion: "Seguro contra cualquier accidente nautico que pueda ocurrir tanto en moto de agua, lancha o boardingBoard",
-		precio: 54500
-
-}, 
-{
-	    nombre: "Seguro Embacaciones Plus",
-		img: "./img/productos/SegurobarcoPlus.jpg",
-		titulo: "Alta mar sin preocupaciones",
-		descripcion: "Seguro de aguas internacionales de escala global, con alerta de tormentas o mal temporada, extraccion en caso de averia tecnica en aguas profundas ademas de incluir los beneficios de la poliza Classic",
-		precio: 123500
-
-}]
-	
-	for (const producto of productos) {
+	for (const producto of lista) {
 		let productosVarios = document.querySelector("#productosVarios")
 
 		let contenedor = document.createElement("div")
 		
 		contenedor.innerHTML = `<div class="container text-center">
-								<div class="row ">
-								<div class="col">
 									<h2 class="titulo-producto" > ${producto.nombre} </h2>
 								  <div class="contenedor-div d-flex content-center mb-25px" id="div-productos">                      
-								  <img src="${producto.img}" class="img-fluid" " alt="SeguroMoto">
+								  <img class="img-fluid"  alt="SeguroMoto" src="${producto.img}">
 								  <div class="d-flex justify-content-center" id="textoProductos"> 
 								  <div class="card-body" id="${producto.nombre}">
 								  <h3 class="card-title">${producto.titulo}</h3>
 								  <h5 class="card-text">${producto.descripcion}
 								  <h3 class="precio-producto p-2 "> Tan solo por $${producto.precio}</h3></h5>
 								  <button type="button" class="btn btn-outline-secondary p-2 " id="btnContratar" >Contratar Ahora!</button>
-								  </div> 
-								  </div>
 								  </div>
 								  </div>`
 	   productosVarios.appendChild(contenedor)
+	   //aplicando efecto mouseOver al div productos
+	   
+	 
+
+
+		   //Convierto los Productos a JSON para enviarlos al nav en forma de string
+		//    let productosEnJson = JSON.stringify(productos) 
+
+		//    // console.log(productosEnJson);
+		//    let listaDeProductosEnSession = sessionStorage.setItem("productos", productosEnJson)
+	   
 	}
-	//aplicando efecto mouseOver al div productos
-	
-	let divProductos = document.querySelector("#div-productos");
-	divProductos.addEventListener("click", ()=>{
-		divProductos.classList.toggle("contenedor-div-active")
+}
 
-	}) 
+cargarProductos()
 
-	//Convierto los Productos a JSON para enviarlos al nav en forma de string
-	let productosEnJson = JSON.stringify(productos) 
-    // console.log(productosEnJson);
-	let listaDeProductosEnSession = sessionStorage.setItem("productos", productosEnJson)
 
 
 //Clientes que nos elijen (array de objetos que enviaremos a una lista en el home)
+const cargarClientesFieles = async()=>{
+ const response = await fetch("./clientesFieles.json")
+ let clientes = await response.json()
 
-let clientesFieles =[{
-    id: 1,
-    nombre: "Juan Perez",
-    vehiculo: "tesla Model S",
-    km: 58000
-},
-{
-    id: 2,
-    nombre: "Miguel Ramirez",
-    vehiculo: "Porche Taycan",
-    km: 5000
-},
-{
-    id: 3,
-    nombre: "Brenda Sessolo",
-    vehiculo: "Audi Q5",
-    km:8000
-},
-{
-    id: 4,
-    nombre: "Diego Fernandez",
-    vehiculo: "Aston Martin Db9",
-    km: 500
-}]
-
-
-// // Datos de la lista de clientes 
  
-tablaClientesFieles = document.querySelector("#tabla-clientes");
-
-
-// * Rellenando datos de la lista dinamicamente
-
-for (const cliente of clientesFieles) {
- 	datosClientesFieles = document.querySelector("#columna-cliente")
-
-	let listaClientesFieles = document.createElement("tr")
-	listaClientesFieles.innerHTML = `<td>${cliente.id} </td>
-	 	                          <td>${cliente.nombre} </td>
-	 							  <td>${cliente.vehiculo} </td>
-	 							  <td>${cliente.km} </td>
-	 							  `
-   datosClientesFieles.appendChild(listaClientesFieles)
+ // // Datos de la lista de clientes 
+  
+ tablaClientesFieles = document.querySelector("#tabla-clientes");
+ 
+ 
+ // * Rellenando datos de la lista dinamicamente
+ 
+ for (const cliente of clientes) {
+	  datosClientesFieles = document.querySelector("#columna-cliente")
+ 
+	 let listaClientesFieles = document.createElement("tr")
+	 listaClientesFieles.innerHTML = `<td>${cliente.id} </td>
+									<td>${cliente.nombre} </td>
+									<td>${cliente.vehiculo} </td>
+									<td>${cliente.km} </td>
+									`
+	datosClientesFieles.appendChild(listaClientesFieles)
+ }
 }
-
+cargarClientesFieles()
 // Funcionalidades a los nodos obtenidos
 
 // botonEnviar.addEventListener("click", () => alert("revisa que este todo correcto!"));
